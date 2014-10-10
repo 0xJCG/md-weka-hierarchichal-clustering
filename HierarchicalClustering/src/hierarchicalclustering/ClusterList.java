@@ -10,14 +10,11 @@ public class ClusterList {
 	}
 	
 	public void add(Cluster cluster) {
-		this.list.add(cluster);
+		if (!this.isCluster(cluster))
+			this.list.add(cluster);
 	}
 	
-	public boolean isCluster(Cluster cluster) {
-		return true;
-	}
-	
-	public String toString() {
-		return this.list.toString();
+	private boolean isCluster(Cluster cluster) {
+		return this.list.contains(cluster);
 	}
 }
