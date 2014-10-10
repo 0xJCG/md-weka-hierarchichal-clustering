@@ -35,6 +35,7 @@ public class Cluster {
         		count++;
         	}
         }
+		
         if (count == 0)
                 throw new Exception();
         else
