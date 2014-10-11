@@ -9,6 +9,13 @@ public class HierarchicalClustering {
 	private Instances instances;
 	private ArrayList<ClusterList> clusterList = new ArrayList<ClusterList>();
 	
+	public HierarchicalClustering(){
+		
+	}
+	public void setInstances(Instances data){
+		this.instances=data;
+	}
+	
 	public void run() {
 		Iterator<ClusterList> it = this.clusterList.iterator();
 		ClusterList cl, claux;
