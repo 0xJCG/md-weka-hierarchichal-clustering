@@ -1,22 +1,22 @@
 package hierarchicalclustering;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 import weka.core.Instance;
 
 public class Cluster {
-	private ArrayList<Instance> instances;
+	private LinkedList<Instance> instances;
 	
 	public Cluster() {
 		super();
 	}
 	
 	public Cluster(Instance instance) {
-		this.instances = new ArrayList<Instance>();
+		this.instances = new LinkedList<Instance>();
 		this.instances.add(instance);
 	}
 
-	public ArrayList<Instance> getInstances() {
+	public LinkedList<Instance> getInstances() {
 		return instances;
 	}
 	

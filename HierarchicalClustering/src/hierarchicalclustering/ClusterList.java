@@ -1,23 +1,23 @@
 package hierarchicalclustering;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 public class ClusterList {
-	private ArrayList<Cluster> list;
+	private LinkedList<Cluster> list;
 	
 	public ClusterList() {
-		this.list = new ArrayList<Cluster>();
+		this.list = new LinkedList<Cluster>();
 	}
 	
 	public ClusterList(Cluster cluster) {
-		this.list = new ArrayList<Cluster>();
+		this.list = new LinkedList<Cluster>();
 		this.add(cluster);
 	}
 	
 	public void add(Cluster cluster) {
 		if (!this.isCluster(cluster))
-			this.list.add(cluster);
+			this.list.addLast(cluster);
 	}
 	
 	private boolean isCluster(Cluster cluster) {
@@ -39,9 +39,10 @@ public class ClusterList {
 	public void print() {
 		Iterator<Cluster> it = this.list.iterator();
 		Cluster c;
+		System.out.println("  - " + this.size() + " cluster/s:");
 		while (it.hasNext()) {
 			c = it.next();
-			System.out.println("   - " + c.getInstances());
+			System.out.println("    " + c.getInstances());
 		}
 	}
 }
