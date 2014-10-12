@@ -1,5 +1,8 @@
 package hierarchicalclustering;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Set;
 import java.util.TreeMap;
 
 public class ClusterTree {
@@ -22,5 +25,19 @@ public class ClusterTree {
 	
 	public String toString() {
 		return this.tree.toString();
+	}
+	
+	public int size() {
+		return this.tree.size();
+	}
+	
+	public void print() {
+		Set<Float> keys = this.tree.keySet();
+		for (Iterator<Float> i = keys.iterator(); i.hasNext();) {
+			Float key = (Float) i.next();
+			ClusterList value = this.tree.get(key);
+			System.out.println("Distancia: " + key);
+			value.print();
+		}
 	}
 }

@@ -8,7 +8,7 @@ import weka.core.ManhattanDistance;
 public class Distance {
 	private static Distance miDistancia = null;
 	private DistanceFunction distanceFunction;
-
+	
 	private Distance() { // Por defecto, Euclídea.
 		this.distanceFunction = new EuclideanDistance();
 	}
@@ -29,6 +29,6 @@ public class Distance {
 		else if (k == 1)
 			this.distanceFunction = new ManhattanDistance();
 		else // Euclídea por defecto.
-			this.distanceFunction = new EuclideanDistance();
+			this.distanceFunction = new distances.EuclideanDistance();
 	}
 }

@@ -1,6 +1,7 @@
 package hierarchicalclustering;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ClusterList {
 	private ArrayList<Cluster> list;
@@ -29,5 +30,18 @@ public class ClusterList {
 	
 	public Cluster get(int i) {
 		return this.list.get(i);
+	}
+	
+	public void remove(int i) {
+		this.list.remove(i);
+	}
+	
+	public void print() {
+		Iterator<Cluster> it = this.list.iterator();
+		Cluster c;
+		while (it.hasNext()) {
+			c = it.next();
+			System.out.println("   - " + c.getInstances());
+		}
 	}
 }

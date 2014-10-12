@@ -8,10 +8,10 @@ public class CompleteLink implements Link {
 		Instance instance1, instance2;
 		double distance = 0, tempDist = 0;
 		
-		for (int i = 0; i < cluster1.getInstances().numInstances(); i++) {
-        	instance1 = cluster1.getInstances().instance(i);
-        	for (int j = 0; j < cluster2.getInstances().numInstances(); j++) {
-        		instance2 = cluster2.getInstances().instance(i);
+		for (int i = 0; i < cluster1.size(); i++) {
+        	instance1 = cluster1.get(i);
+        	for (int j = 0; j < cluster2.size(); j++) {
+        		instance2 = cluster2.get(i);
         		tempDist = Distance.getMiDistance().getDistance().distance(instance1, instance2);
         		if (tempDist > distance)
         			distance = tempDist;

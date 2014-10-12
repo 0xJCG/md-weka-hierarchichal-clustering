@@ -1,20 +1,22 @@
 package hierarchicalclustering;
 
+import java.util.ArrayList;
+
 import weka.core.Instance;
-import weka.core.Instances;
 
 public class Cluster {
-	private Instances instances;
+	private ArrayList<Instance> instances;
 	
 	public Cluster() {
 		super();
 	}
 	
 	public Cluster(Instance instance) {
+		this.instances = new ArrayList<Instance>();
 		this.instances.add(instance);
 	}
 
-	public Instances getInstances() {
+	public ArrayList<Instance> getInstances() {
 		return instances;
 	}
 	
@@ -22,77 +24,16 @@ public class Cluster {
 		this.instances.add(instance);
 	}
 	
-	/*public double distanceWithAnotherCluster(Cluster cluster) throws Exception {
-		Instance instance1, instance2;
-		double distance = 0, count = 0, tempDist = 0;
-		
-		for (int i = 0; i < this.instances.numInstances(); i++) {
-        	instance1 = this.instances.instance(i);
-        	for (int j = 0; j < cluster.getInstances().numInstances(); j++) {
-        		instance2 = cluster.getInstances().instance(i);
-        		tempDist = Distance.getMiDistance().getDistance().distance(instance1, instance2);
-        		distance += tempDist;
-        		count++;
-        	}
-        }
-		
-        if (count == 0)
-                throw new Exception();
-        else
-                return distance / count;
+	public Instance get(int i) {
+		return this.instances.get(i);
 	}
 	
-	private double averageLink(Cluster cluster) throws Exception {
-		Instance instance1, instance2;
-		double distance = 0, count = 0, tempDist = 0;
-		
-		for (int i = 0; i < this.instances.numInstances(); i++) {
-        	instance1 = this.instances.instance(i);
-        	for (int j = 0; j < cluster.getInstances().numInstances(); j++) {
-        		instance2 = cluster.getInstances().instance(i);
-        		tempDist = Distance.getMiDistance().getDistance().distance(instance1, instance2);
-        		distance += tempDist;
-        		count++;
-        	}
-        }
-		
-        if (count == 0)
-                throw new Exception();
-        else
-                return distance / count;
+	public int size() {
+		return this.instances.size();
 	}
 	
-	private double singleLink(Cluster cluster) throws Exception {
-		Instance instance1, instance2;
-		double distance = 1.0/0.0, tempDist = 0;
-		
-		for (int i = 0; i < this.instances.numInstances(); i++) {
-        	instance1 = this.instances.instance(i);
-        	for (int j = 0; j < cluster.getInstances().numInstances(); j++) {
-        		instance2 = cluster.getInstances().instance(i);
-        		tempDist = Distance.getMiDistance().getDistance().distance(instance1, instance2);
-        		if (tempDist < distance)
-        			distance = tempDist;
-        	}
-        }
-		
-        return distance;
+	public void merge(Cluster cluster) {
+		for (int i = 0; i < cluster.size(); i++)
+			this.addInstance(cluster.get(i));
 	}
-	
-	private double completeLink(Cluster cluster) throws Exception {
-		Instance instance1, instance2;
-		double distance = 0, tempDist = 0;
-		
-		for (int i = 0; i < this.instances.numInstances(); i++) {
-        	instance1 = this.instances.instance(i);
-        	for (int j = 0; j < cluster.getInstances().numInstances(); j++) {
-        		instance2 = cluster.getInstances().instance(i);
-        		tempDist = Distance.getMiDistance().getDistance().distance(instance1, instance2);
-        		if (tempDist > distance)
-        			distance = tempDist;
-        	}
-        }
-		
-        return distance;
-	}*/
 }
