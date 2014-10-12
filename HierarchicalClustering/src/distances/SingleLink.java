@@ -3,7 +3,7 @@ package distances;
 import weka.core.Instance;
 import hierarchicalclustering.Cluster;
 
-public class SingleLink implements Link {
+public class SingleLink implements LinksInterface {
 	public double calculateClusterDistance(Cluster cluster1, Cluster cluster2) {
 		Instance instance1, instance2;
 		double distance = 1.0/0.0, tempDist = 0;

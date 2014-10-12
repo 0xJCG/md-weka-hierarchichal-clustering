@@ -2,7 +2,7 @@ package distances;
 
 import hierarchicalclustering.Cluster;
 
-public interface Link {
+public interface LinksInterface {
 	/**
      * Calculate distance between two clusters represented as cluster objects
      * @param cluster1

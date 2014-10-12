@@ -1,19 +1,17 @@
 package hierarchicalclustering;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.LinkedList;
 
-import weka.core.Instance;
 import weka.core.Instances;
 import distances.AverageLink;
 import distances.CompleteLink;
-import distances.Link;
+import distances.LinksInterface;
 import distances.SingleLink;
 
 public class HierarchicalClustering {
 	private Instances instances;
-	private ArrayList<ClusterList> finalClusterList = new ArrayList<ClusterList>();
-	private Link link;
+	private LinkedList<ClusterList> finalClusterList = new LinkedList<ClusterList>();
+	private LinksInterface link;
 	
 	public HierarchicalClustering(int link) {
 		if (link == 0)
@@ -58,9 +56,8 @@ public class HierarchicalClustering {
 			updatingClusterList.add(nearestCluster);
 			this.finalClusterList.add(updatingClusterList);
 			ClusterTree.getClusterTree().add((float) minDistance, updatingClusterList);
-			System.out.println("Distancia: " + minDistance);
+			System.out.println("Distancia: " + minDistance + ". Numero de clusters: " + updatingClusterList.size());
 			updatingClusterList.print();
-			System.out.println(nearestCluster);
 		}
 		//this.printFinalList();
 		//ClusterTree.getClusterTree().print();
@@ -78,16 +75,13 @@ public class HierarchicalClustering {
 		return firstClusterList;
 	}
 	
-	private void printFinalList() {
+	/*private void printFinalList() {
 		Iterator<ClusterList> it = this.finalClusterList.iterator();
 		ClusterList c;
-		int cont = 1;
 		while (it.hasNext()) {
 			c = it.next();
-			System.out.println("Iteracion " + cont);
 			System.out.println("Numero de clusters: " + c.size());
 			c.print();
-			cont++;
 		}
-	}
+	}*/
 }

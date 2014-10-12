@@ -1,16 +1,11 @@
 package distances;
 
-import weka.core.ChebyshevDistance;
-import weka.core.DistanceFunction;
-import weka.core.EuclideanDistance;
-import weka.core.ManhattanDistance;
-
 public class Distance {
 	private static Distance miDistancia = null;
-	private DistanceFunction distanceFunction;
+	private DistancesInterface distance;
 	
 	private Distance() { // Por defecto, Euclídea.
-		this.distanceFunction = new EuclideanDistance();
+		this.distance = new MinkowskiDistance(2);
 	}
 	
 	public static Distance getMiDistance() {
@@ -19,16 +14,15 @@ public class Distance {
 		return miDistancia;
 	}
 	
-	public DistanceFunction getDistance() {
-		return this.distanceFunction;
+	public DistancesInterface getDistance() {
+		return this.distance;
 	}
 	
 	public void setDistance(int k) {
 		if (k == 0)
-			this.distanceFunction = new ChebyshevDistance();
-		else if (k == 1)
-			this.distanceFunction = new ManhattanDistance();
-		else // Euclídea por defecto.
-			this.distanceFunction = new distances.EuclideanDistance();
+			//this.distance = new ChebyshevDistance();
+			this.distance = new MinkowskiDistance(2);
+		else
+			this.distance = new MinkowskiDistance(k);
 	}
 }
