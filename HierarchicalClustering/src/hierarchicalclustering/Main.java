@@ -1,5 +1,7 @@
 package hierarchicalclustering;
 
+import datafiles.DataLoader;
+import distances.Distance;
 import weka.core.Instances;
 
 /*Parámetros:
@@ -12,29 +14,21 @@ public class Main {
 		if(args.length==4){
 			DataLoader dl = new  DataLoader(args[0]);
 			Instances data = dl.instancesLoader();
-			HierarchicalClustering hc = new HierarchicalClustering();
-			hc.setInstances(data);
-			if(args[2].equals("0")){
+			HierarchicalClustering hc;
+			
+			/*if (args[2].equals("0")) {
 				//bottomo-up
-			}
-			else if(args[2].equals("1")){
+			} else if (args[2].equals("1"))
 				//top-down
-			}
-			else{
-				System.out.println("El numero introducido tiene que ser o el 0 o el 1");
-			}
-			if(args[3].equals("0")){
-				//single-link
-			}
-			else if(args[3].equals("1")){
-				//complete-link
-			}
-			else if(args[3].equals("0")){
-				//average-link
-			}
-			else{
-				System.out.println("El numero introducido debe estar entre el 0 y el 2");
-			}
+			else
+				System.out.println("El numero introducido tiene que ser o el 0 o el 1");*/
+			
+			if (args[3].equals("0")) //complete-link
+				hc = new HierarchicalClustering(0);
+			else if(args[3].equals("1")) //single-link
+				hc = new HierarchicalClustering(1);
+			else //average-link
+				hc = new HierarchicalClustering(2);
 			
 			if(args[4].equals("0")){
 				Distance.getMiDistance().setDistance(0);	
@@ -48,11 +42,11 @@ public class Main {
 			else{
 				System.out.println("El numero introducido debe estar entre el 0 y el 2");
 			}
+			
+			hc.setInstances(data);
 			hc.run();
-		
 		}
-		else{
+		else
 			System.out.println("El numero de parametros no es el correcto.");
-		}
 	}
 }

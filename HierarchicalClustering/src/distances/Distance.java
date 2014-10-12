@@ -1,4 +1,4 @@
-package hierarchicalclustering;
+package distances;
 
 import weka.core.ChebyshevDistance;
 import weka.core.DistanceFunction;

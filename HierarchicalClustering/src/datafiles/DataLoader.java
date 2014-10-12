@@ -1,4 +1,4 @@
-package hierarchicalclustering;
+package datafiles;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;

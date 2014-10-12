@@ -3,15 +3,26 @@ package hierarchicalclustering;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import distances.AverageLink;
+import distances.CompleteLink;
+import distances.Link;
+import distances.SingleLink;
 import weka.core.Instances;
 
 public class HierarchicalClustering {
 	private Instances instances;
 	private ArrayList<ClusterList> clusterList = new ArrayList<ClusterList>();
+	private Link link;
 	
-	public HierarchicalClustering(){
-		
+	public HierarchicalClustering(int link) {
+		if (link == 0)
+			this.link = new CompleteLink();
+		else if (link == 1)
+			this.link = new SingleLink();
+		else
+			this.link = new AverageLink();
 	}
+	
 	public void setInstances(Instances data){
 		this.instances=data;
 	}
@@ -33,7 +44,7 @@ public class HierarchicalClustering {
 				claux.add(c);
 				for (int j = i + 1; j < cl.size(); j++) {
 					try {
-						daux = c.distanceWithAnotherCluster(cl.get(j));
+						daux = this.link.calculateClusterDistance(c, cl.get(j));// c.distanceWithAnotherCluster(cl.get(j));
 						if (daux < minDistance)
 							claux.add(cl.get(j));
 					} catch (Exception e) {

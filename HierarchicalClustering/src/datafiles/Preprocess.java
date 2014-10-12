@@ -1,4 +1,4 @@
-package hierarchicalclustering;
+package datafiles;
 
 import weka.core.Instances;
 

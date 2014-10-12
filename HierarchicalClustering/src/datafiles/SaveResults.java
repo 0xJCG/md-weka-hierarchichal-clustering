@@ -1,4 +1,4 @@
-package hierarchicalclustering;
+package datafiles;
 
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
