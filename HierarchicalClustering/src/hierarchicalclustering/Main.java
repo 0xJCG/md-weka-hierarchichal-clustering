@@ -33,10 +33,8 @@ public class Main {
 			
 			if (args[3].equals("0")) // Chebyshev.
 				Distance.getMiDistance().setDistance(0);
-			else if(args[3].equals("1")) // Manhattan.
-				Distance.getMiDistance().setDistance(1);
-			else  // Euclidean.
-				Distance.getMiDistance().setDistance(2);
+			else // Minkowski.
+				Distance.getMiDistance().setDistance(Integer.parseInt(args[3]));
 			
 			hc.setInstances(Preprocess.getMiPreprocess().deleteUselessAtributes(data));
 			hc.run();
