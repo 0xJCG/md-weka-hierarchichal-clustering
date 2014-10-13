@@ -1,9 +1,9 @@
 package hierarchicalclustering;
 
+import weka.core.Instances;
 import datafiles.DataLoader;
 import datafiles.Preprocess;
 import distances.Distance;
-import weka.core.Instances;
 
 /*Parámetros:
   1º.-path: el path del fichero
@@ -15,6 +15,12 @@ public class Main {
 		if (args.length == 4) {
 			DataLoader dl = new DataLoader(args[0]);
 			Instances data = dl.instancesLoader();
+			/*try {
+				double[] aux = dl.instancesLoaderV2();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}*/
 			HierarchicalClustering hc;
 			
 			/*if (args[1].equals("0")) {

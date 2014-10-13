@@ -4,7 +4,7 @@ public class Distance {
 	private static Distance miDistancia = null;
 	private DistancesInterface distance;
 	
-	private Distance() { // Por defecto, Euclídea.
+	private Distance() { // Por defecto, Euclï¿½dea.
 		this.distance = new MinkowskiDistance(2);
 	}
 	
@@ -20,8 +20,7 @@ public class Distance {
 	
 	public void setDistance(int k) {
 		if (k == 0)
-			//this.distance = new ChebyshevDistance();
-			this.distance = new MinkowskiDistance(2);
+			this.distance = new ChebyshevDistance();
 		else
 			this.distance = new MinkowskiDistance(k);
 	}

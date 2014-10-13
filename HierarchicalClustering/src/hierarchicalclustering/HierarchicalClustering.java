@@ -23,13 +23,16 @@ public class HierarchicalClustering {
 		this.instances = data;
 	}
 	
+	/**
+	 * Realiza el algoritmo bottom-up de clustering jerárquico.
+	 */
 	public void run() {
 		ClusterList updatingClusterList = this.beginClustering();
 		Cluster c = new Cluster(), nearestCluster = new Cluster();
 		double minDistance, daux = 0;
 		int c1 = 0;
 		
-		System.out.println("Distancia: 0. Numero de clusters: " + updatingClusterList.size());
+		System.out.println("Distancia: 0");
 		updatingClusterList.print();
 		
 		while (updatingClusterList.size() > 1) {
@@ -59,6 +62,10 @@ public class HierarchicalClustering {
 		//ClusterTree.getClusterTree().print();
 	}
 	
+	/**
+	 * Realiza la primera iteración del método bottom-up de cluster jerárquico, es decir, una instancia por cluster.
+	 * @return Devuelve la lista inicial con los clusters.
+	 */
 	private ClusterList beginClustering() {
 		Cluster newCluster;
 		ClusterList firstClusterList = new ClusterList();

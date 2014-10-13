@@ -1,5 +1,6 @@
 package datafiles;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -27,6 +28,27 @@ public class DataLoader {
 			System.out.println("ERROR: Revisar path del fichero de datos: " + path);
 		}
 		
+	}
+	
+	public double[] instancesLoaderV2() throws IOException {
+		BufferedReader br = new BufferedReader(this.fr);
+		String line;
+		double[] data = null;
+		String[] aux = null;
+		boolean startLoading = false;
+		
+		while((line = br.readLine()) != null) {
+			if (line.equals("@data")) {
+				startLoading = true;
+			}
+			if (startLoading) {
+				aux = line.split(",");
+			}
+		}
+		//Instances i = new Instances(aux);
+		System.out.println(aux[1].toString());
+		
+		return data;
 	}
 	
 	private FileReader getFR() {
