@@ -53,7 +53,7 @@ public class HierarchicalClustering {
 			updatingClusterList.remove(c1);
 			updatingClusterList.add(nearestCluster);
 			//ClusterTree.getClusterTree().add((float) minDistance, updatingClusterList);
-			System.out.println("Distancia: " + minDistance + ". Numero de clusters: " + updatingClusterList.size());
+			System.out.println("Distancia: " + minDistance);
 			updatingClusterList.print();
 		}
 		//ClusterTree.getClusterTree().print();
