@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import weka.core.Instances;
 import datafiles.DataLoader;
+import datafiles.SaveResults;
 import distances.Distance;
 
 /*ParÃ¡metros:
@@ -15,6 +16,7 @@ import distances.Distance;
 public class Main {
 	public static void main(String[] args) {
 		if (args.length == 4) {
+			
 			DataLoader dl;
 			Instances data = null;
 			try {
@@ -25,7 +27,9 @@ public class Main {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
+			String resultado = "Cluster jerárquico, por Yuriy Andzheyevskiy y Jonathan Castro.\n\n";
+			resultado += args[0] + ".\n";
+			resultado += " - Número de instancias: " + data.numInstances() + ".\n";
 			HierarchicalClustering hc;
 			
 			/*if (args[1].equals("0")) {
@@ -35,19 +39,28 @@ public class Main {
 			else
 				System.out.println("El numero introducido tiene que ser o el 0 o el 1");*/
 			
-			if (args[2].equals("0")) //complete-link
+			if (args[2].equals("0")) { // Complete-link.
 				hc = new HierarchicalClustering(0, data);
-			else if(args[2].equals("1")) //single-link
+				resultado += " - Linkage utilizado: complete-link.\n";
+			} else if(args[2].equals("1")) { // Single-link.
 				hc = new HierarchicalClustering(1, data);
-			else //average-link
+				resultado += " - Linkage utilizado: single-link.\n";
+			} else { // Por defecto, average-link.
 				hc = new HierarchicalClustering(2, data);
+				resultado += " - Linkage utilizado: average-link.\n";
+			}
 			
-			if (args[3].equals("0")) // Chebyshev.
+			if (args[3].equals("0")) { // Chebyshev.
 				Distance.getMiDistance().setDistance(0);
-			else // Minkowski.
+				resultado += " - Distancia utilizada: Chebyshev.\n";
+			} else { // Minkowski.
 				Distance.getMiDistance().setDistance(Integer.parseInt(args[3]));
+				resultado += " - Distancia utilizada: Minkowski, con k = " + args[3] + ".\n\n";
+			}
 			
-			hc.run();
+			resultado += "=========== Resultado del algoritmo ===========\n\n";
+			resultado += hc.run();
+			SaveResults.getSaveResults().SaveFile(args[0], resultado, true);
 		}
 		else
 			System.out.println("El numero de parametros no es el correcto.");

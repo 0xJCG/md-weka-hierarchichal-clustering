@@ -27,16 +27,20 @@ public class HierarchicalClustering {
 	/**
 	 * Realiza el algoritmo bottom-up de clustering jerarquico.
 	 */
-	public void run() {
-		ClusterList updatingClusterList = this.beginClustering();
-		Cluster c = new Cluster(), nearestCluster = new Cluster();
+	public String run() {
+		Cluster c = new Cluster();
 		double minDistance, daux = 0;
-		int c1 = 0, numCiclos = this.instances.numInstances();
+		int c1 = 0, c2 = 0, numIteracionesQueFaltan = this.instances.numInstances();
+		int iteraciones = numIteracionesQueFaltan;
 		
-		System.out.println("Distancia: 0");
-		updatingClusterList.print();
+		System.out.println("Iteracion 1 de " + iteraciones + ".");
+		ClusterList updatingClusterList = this.beginClustering();
 		
-		while (numCiclos > 1) { // Sabemos que empezamos desde el numero total de clusters iniciales hasta quedarnos con uno unico.
+		String resultado = "A distancia 0, " + updatingClusterList.toString() + "\n";
+		
+		while (numIteracionesQueFaltan > 1) { // Sabemos que empezamos desde el numero total de clusters iniciales hasta quedarnos con uno unico.
+			System.out.println("Iteracion " + (iteraciones - numIteracionesQueFaltan + 2) + " de " + iteraciones + ".");
+			
 			minDistance = 1.0/0.0; // Infinito.
 			for (int i = 0; i < updatingClusterList.size(); i++) { // Comprobamos cada cluster primer cluster...
 				c = updatingClusterList.get(i);
@@ -44,20 +48,20 @@ public class HierarchicalClustering {
 					daux = this.link.calculateClusterDistance(c, updatingClusterList.get(j)); // Calculamos la distancia entre clusters.
 					if (daux < minDistance) { // Comprobamos si es la menor. De serlo, la guardamos.
 						minDistance = daux;
-						nearestCluster = updatingClusterList.get(j); // Guardamos el cluster más cercano.
-						c1 = i; // Y también guardaremos el cluster por el que hemos empezado a comprobar.
+						c1 = i; // Guardamos la posicion del primer cluster.
+						c2 = j; // Guardamos la posicion del segundo cluster.
 					}
 				}
 			}
-			numCiclos--;
-			nearestCluster.merge(updatingClusterList.get(c1)); // Unimos los dos clusters mas cercanos entre si.
-			updatingClusterList.remove(c1); // Eliminamos el cluster que hemos introducido en el otro.
-			updatingClusterList.add(nearestCluster); // Anadimos el nuevo cluster a la lista.
+			updatingClusterList.get(c1).merge(updatingClusterList.get(c2)); // Unimos los dos clusters mas cercanos entre si.
+			updatingClusterList.remove(c2); // Eliminamos el cluster que hemos introducido en el otro.
+			numIteracionesQueFaltan--; // Un cluster menos en la lista.
 			//ClusterTree.getClusterTree().add((float) minDistance, updatingClusterList);
-			System.out.println("Distancia: " + minDistance);
-			updatingClusterList.print();
+			
+			resultado += "A distancia " + minDistance + ", " + updatingClusterList.toString() + "\n";
 		}
 		//ClusterTree.getClusterTree().print();
+		return resultado;
 	}
 	
 	/**

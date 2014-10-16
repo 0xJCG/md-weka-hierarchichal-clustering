@@ -45,4 +45,15 @@ public class ClusterList {
 			System.out.println("    " + c.getInstances());
 		}
 	}
+	
+	public String toString() {
+		Iterator<Cluster> it = this.list.iterator();
+		Cluster c;
+		String string = this.size() + " cluster/s:\n";
+		while (it.hasNext()) {
+			c = it.next();
+			string += "  " + c.getInstances() + "\n";
+		}
+		return string;
+	}
 }
