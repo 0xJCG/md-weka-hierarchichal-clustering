@@ -15,7 +15,7 @@ import distances.Distance;
   4Âº.-d: Distancia.Si k=0 Chebyshev; si k=1 Manhattan; si k=2 Euclidea*/
 public class Main {
 	public static void main(String[] args) {
-		if (args.length == 4) {
+		if (args.length == 5) {
 			
 			DataLoader dl;
 			Instances data = null;
@@ -27,6 +27,7 @@ public class Main {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			
 			String resultado = "Cluster jerárquico, por Yuriy Andzheyevskiy y Jonathan Castro.\n\n";
 			resultado += args[0] + ".\n";
 			resultado += " - Número de instancias: " + data.numInstances() + ".\n";
@@ -60,7 +61,9 @@ public class Main {
 			
 			resultado += "=========== Resultado del algoritmo ===========\n\n";
 			resultado += hc.run();
-			SaveResults.getSaveResults().SaveFile(args[0], resultado, true);
+			
+			if (!args[4].equals("0")) // Si el usuario ha introducido un numero que no sea 0, sacara el resultado de las iteraciones en un fichero.
+				SaveResults.getSaveResults().SaveFile(args[0], resultado, true);
 		}
 		else
 			System.out.println("El numero de parametros no es el correcto.");
