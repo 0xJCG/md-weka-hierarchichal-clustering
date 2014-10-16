@@ -1,8 +1,10 @@
 package hierarchicalclustering;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import weka.core.Instances;
 import datafiles.DataLoader;
-import datafiles.Preprocess;
 import distances.Distance;
 
 /*Parámetros:
@@ -13,14 +15,17 @@ import distances.Distance;
 public class Main {
 	public static void main(String[] args) {
 		if (args.length == 4) {
-			DataLoader dl = new DataLoader(args[0]);
-			Instances data = dl.instancesLoader();
-			/*try {
-				double[] aux = dl.instancesLoaderV2();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
+			DataLoader dl;
+			Instances data = null;
+			try {
+				dl = new DataLoader(args[0]);
+				data = dl.instancesLoader();
+			} catch (FileNotFoundException e) {
 				e.printStackTrace();
-			}*/
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
 			HierarchicalClustering hc;
 			
 			/*if (args[1].equals("0")) {
@@ -31,18 +36,17 @@ public class Main {
 				System.out.println("El numero introducido tiene que ser o el 0 o el 1");*/
 			
 			if (args[2].equals("0")) //complete-link
-				hc = new HierarchicalClustering(0);
+				hc = new HierarchicalClustering(0, data);
 			else if(args[2].equals("1")) //single-link
-				hc = new HierarchicalClustering(1);
+				hc = new HierarchicalClustering(1, data);
 			else //average-link
-				hc = new HierarchicalClustering(2);
+				hc = new HierarchicalClustering(2, data);
 			
 			if (args[3].equals("0")) // Chebyshev.
 				Distance.getMiDistance().setDistance(0);
 			else // Minkowski.
 				Distance.getMiDistance().setDistance(Integer.parseInt(args[3]));
 			
-			hc.setInstances(Preprocess.getMiPreprocess().deleteUselessAtributes(data));
 			hc.run();
 		}
 		else

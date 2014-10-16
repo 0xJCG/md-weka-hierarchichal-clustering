@@ -4,8 +4,8 @@ public class Distance {
 	private static Distance miDistancia = null;
 	private DistancesInterface distance;
 	
-	private Distance() { // Por defecto, Eucl�dea.
-		this.distance = new MinkowskiDistance(2);
+	private Distance() {
+		this.distance = new MinkowskiDistance(2); // Por defecto, Euclidea.
 	}
 	
 	public static Distance getMiDistance() {

@@ -10,5 +10,5 @@ public interface LinksInterface {
      * @return distance
 	 * @throws Exception 
      */
-    public double calculateClusterDistance (Cluster cluster1, Cluster cluster2) throws Exception;
+    public double calculateClusterDistance (Cluster cluster1, Cluster cluster2);
 }

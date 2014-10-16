@@ -10,13 +10,14 @@ public class HierarchicalClustering {
 	private Instances instances;
 	private LinksInterface link;
 	
-	public HierarchicalClustering(int link) {
+	public HierarchicalClustering(int link, Instances data) {
 		if (link == 0)
 			this.link = new CompleteLink();
 		else if (link == 1)
 			this.link = new SingleLink();
 		else
 			this.link = new AverageLink();
+		this.instances = data;
 	}
 	
 	public void setInstances(Instances data){
@@ -24,37 +25,34 @@ public class HierarchicalClustering {
 	}
 	
 	/**
-	 * Realiza el algoritmo bottom-up de clustering jerárquico.
+	 * Realiza el algoritmo bottom-up de clustering jerarquico.
 	 */
 	public void run() {
 		ClusterList updatingClusterList = this.beginClustering();
 		Cluster c = new Cluster(), nearestCluster = new Cluster();
 		double minDistance, daux = 0;
-		int c1 = 0;
+		int c1 = 0, numCiclos = this.instances.numInstances();
 		
 		System.out.println("Distancia: 0");
 		updatingClusterList.print();
 		
-		while (updatingClusterList.size() > 1) {
+		while (numCiclos > 1) { // Sabemos que empezamos desde el numero total de clusters iniciales hasta quedarnos con uno unico.
 			minDistance = 1.0/0.0; // Infinito.
-			for (int i = 0; i < updatingClusterList.size(); i++) {
+			for (int i = 0; i < updatingClusterList.size(); i++) { // Comprobamos cada cluster primer cluster...
 				c = updatingClusterList.get(i);
-				for (int j = i + 1; j < updatingClusterList.size(); j++) {
-					try {
-						daux = this.link.calculateClusterDistance(c, updatingClusterList.get(j));
-						if (daux < minDistance) {
-							minDistance = daux;
-							nearestCluster = updatingClusterList.get(j);
-							c1 = i;
-						}
-					} catch (Exception e) {
-						e.printStackTrace();
+				for (int j = i + 1; j < updatingClusterList.size(); j++) { // ...con el resto de clusters que quedan por comprobar.
+					daux = this.link.calculateClusterDistance(c, updatingClusterList.get(j)); // Calculamos la distancia entre clusters.
+					if (daux < minDistance) { // Comprobamos si es la menor. De serlo, la guardamos.
+						minDistance = daux;
+						nearestCluster = updatingClusterList.get(j); // Guardamos el cluster m�s cercano.
+						c1 = i; // Y tambi�n guardaremos el cluster por el que hemos empezado a comprobar.
 					}
 				}
 			}
-			nearestCluster.merge(updatingClusterList.get(c1));
-			updatingClusterList.remove(c1);
-			updatingClusterList.add(nearestCluster);
+			numCiclos--;
+			nearestCluster.merge(updatingClusterList.get(c1)); // Unimos los dos clusters mas cercanos entre si.
+			updatingClusterList.remove(c1); // Eliminamos el cluster que hemos introducido en el otro.
+			updatingClusterList.add(nearestCluster); // Anadimos el nuevo cluster a la lista.
 			//ClusterTree.getClusterTree().add((float) minDistance, updatingClusterList);
 			System.out.println("Distancia: " + minDistance);
 			updatingClusterList.print();
@@ -63,7 +61,7 @@ public class HierarchicalClustering {
 	}
 	
 	/**
-	 * Realiza la primera iteración del método bottom-up de cluster jerárquico, es decir, una instancia por cluster.
+	 * Realiza la primera iteracion del metodo bottom-up de cluster jerarquico, es decir, una instancia por cluster.
 	 * @return Devuelve la lista inicial con los clusters.
 	 */
 	private ClusterList beginClustering() {

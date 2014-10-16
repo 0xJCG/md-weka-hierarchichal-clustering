@@ -4,7 +4,10 @@ import weka.core.Instance;
 import hierarchicalclustering.Cluster;
 
 public class AverageLink implements LinksInterface {
-	public double calculateClusterDistance(Cluster cluster1, Cluster cluster2) throws Exception {
+	/**
+	 * Pre: los clusters no deben estar vacíos.
+	 */
+	public double calculateClusterDistance(Cluster cluster1, Cluster cluster2) {
 		Instance instance1, instance2;
 		double distance = 0, count = 0, tempDist = 0;
 		
@@ -18,9 +21,6 @@ public class AverageLink implements LinksInterface {
         	}
         }
 		
-        if (count == 0)
-                throw new Exception();
-        else
-                return distance / count;
+        return distance / count;
 	}
 }
