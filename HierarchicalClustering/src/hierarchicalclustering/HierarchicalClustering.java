@@ -1,8 +1,10 @@
 package hierarchicalclustering;
 
+import weka.core.Instance;
 import weka.core.Instances;
 import distances.AverageLink;
 import distances.CompleteLink;
+import distances.Distance;
 import distances.LinksInterface;
 import distances.SingleLink;
 
