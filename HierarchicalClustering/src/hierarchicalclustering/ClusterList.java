@@ -35,6 +35,9 @@ public class ClusterList {
 	public void remove(int i) {
 		this.list.remove(i);
 	}
+	public void remove(Cluster c){
+		this.list.remove(c);
+	}
 	
 	public void print() {
 		Iterator<Cluster> it = this.list.iterator();
