@@ -8,11 +8,11 @@ import datafiles.DataLoader;
 import datafiles.SaveResults;
 import distances.Distance;
 
-/*Parámetros:
-  1º.-path: el path del fichero
-  2º.-k: Tipo de clustering jerárquico. Si k=0 bottom up; si k=1 top down(de momento solo bottom up)
-  3º.-l: Tipo distancia intergrupal. Si k=0 single-link; si k=1 complete-link; si k=2 average-link(De momento solo single-link)
-  4º.-d: Distancia.Si k=0 Chebyshev; si k=1 Manhattan; si k=2 Euclidea*/
+/*ParÃ¡metros:
+  1Âº.-path: el path del fichero
+  2Âº.-k: Tipo de clustering jerÃ¡rquico. Si k=0 bottom up; si k=1 top down(de momento solo bottom up)
+  3Âº.-l: Tipo distancia intergrupal. Si k=0 single-link; si k=1 complete-link; si k=2 average-link(De momento solo single-link)
+  4Âº.-d: Distancia.Si k=0 Chebyshev; si k=1 Manhattan; si k=2 Euclidea*/
 public class Main {
 	public static void main(String[] args) {
 		if (args.length == 5) {
@@ -28,17 +28,12 @@ public class Main {
 				e.printStackTrace();
 			}
 			
-			String resultado = "Cluster jer�rquico, por Yuriy Andzheyevskiy y Jonathan Castro.\n\n";
+			String resultado = "Cluster jerárquico, por Yuriy Andzheyevskiy y Jonathan Castro.\n\n";
 			resultado += args[0] + ".\n";
-			resultado += " - N�mero de instancias: " + data.numInstances() + ".\n";
+			resultado += " - Número de instancias: " + data.numInstances() + ".\n";
 			HierarchicalClustering hc;
 			
-			/*if (args[1].equals("0")) {
-				//bottomo-up
-			} else if (args[1].equals("1"))
-				//top-down
-			else
-				System.out.println("El numero introducido tiene que ser o el 0 o el 1");*/
+			
 			
 			if (args[2].equals("0")) { // Complete-link.
 				hc = new HierarchicalClustering(0, data);
@@ -58,14 +53,30 @@ public class Main {
 				Distance.getMiDistance().setDistance(Integer.parseInt(args[3]));
 				resultado += " - Distancia utilizada: Minkowski, con k = " + args[3] + ".\n\n";
 			}
-			
+			if (args[1].equals("0")) {
 			resultado += "=========== Resultado del algoritmo ===========\n\n";
 			resultado += hc.run();
+				if (!args[4].equals("0")){ // Si el usuario ha introducido un numero que no sea 0, sacara el resultado de las iteraciones en un fichero.
+					SaveResults.getSaveResults().SaveFile(args[0], resultado, true);
+				}
+			} else if (args[1].equals("1"))
+			resultado += "=========== Resultado del algoritmo ===========\n\n";
+			resultado += hc.run2();
+				if (!args[4].equals("0")){ // Si el usuario ha introducido un numero que no sea 0, sacara el resultado de las iteraciones en un fichero.
+					SaveResults.getSaveResults().SaveFile(args[0], resultado, true);
+				}
+			}
+			else
+			System.out.println("El numero introducido tiene que ser o el 0 o el 1");
 			
-			if (!args[4].equals("0")) // Si el usuario ha introducido un numero que no sea 0, sacara el resultado de las iteraciones en un fichero.
+			/*resultado += "=========== Resultado del algoritmo ===========\n\n";
+			resultado += hc.run();*/
+			
+			/*if (!args[4].equals("0")){ // Si el usuario ha introducido un numero que no sea 0, sacara el resultado de las iteraciones en un fichero.
 				SaveResults.getSaveResults().SaveFile(args[0], resultado, true);
 		}
-		else
+		else{
 			System.out.println("El numero de parametros no es el correcto.");
-	}
+	}*/
+}
 }
