@@ -35,6 +35,13 @@ public class Cluster {
 	public void addInstance(Instance instance) {
 		this.instances.add(instance);
 	}
+	/**
+	 * 
+	 * @param instance
+	 */
+	public void removeInstance(Instance instance) {
+		this.instances.remove(instance);
+	}
 	
 	/**
 	 * 
