@@ -33,7 +33,7 @@ public class SaveResults {
 		BufferedWriter writer;
 		
 	    Calendar calendar = new GregorianCalendar(); // Fecha y hora actuales.
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmm"); // Formato de la fecha.
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd-HHmmss"); // Formato de la fecha.
 		String dateS = dateFormat.format(calendar.getTime()); // Fecha y hora actuales formateadas.
 		
 		// Variable para captura ranking y variable para guardar el contenido en un archivo.

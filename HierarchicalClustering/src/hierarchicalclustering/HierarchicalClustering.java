@@ -71,9 +71,8 @@ public class HierarchicalClustering {
 	 */
 	public String run2(){
 		Instance instance = null;
-		Cluster c = new Cluster();
-		Cluster caux, caux2 = new Cluster();
-		double minDistance, daux  = 0;
+		Cluster c, caux, caux2 = new Cluster();
+		double minDistance, daux = 0;
 		int index = 0, numIteracionesQueFaltan = this.instances.numInstances();
 		int iteraciones = numIteracionesQueFaltan;
 		

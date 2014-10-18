@@ -53,13 +53,15 @@ public class Main {
 				resultado += " - Distancia utilizada: Chebyshev.\n";
 			} else { // Minkowski.
 				Distance.getMiDistance().setDistance(Integer.parseInt(args[3]));
-				resultado += " - Distancia utilizada: Minkowski, con k = " + distance + ".\n\n";
+				resultado += " - Distancia utilizada: Minkowski, con k = " + distance + ".\n";
 			}
 			
 			if (algorithm == 1) { // Top-down
+				resultado += " - Algoritmo utilizado: top-down.\n\n";
 				resultado += "=========== Resultado del algoritmo ===========\n\n";
 				resultado += hc.run2();
 			} else { // Por defecto, bottom-up.
+				resultado += " - Algoritmo utilizado: bottom-up.\n\n";
 				resultado += "=========== Resultado del algoritmo ===========\n\n";
 				resultado += hc.run();
 			}
