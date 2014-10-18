@@ -11,6 +11,11 @@ public class HierarchicalClustering {
 	private Instances instances;
 	private LinksInterface link;
 	
+	/**
+	 * 
+	 * @param link
+	 * @param data
+	 */
 	public HierarchicalClustering(int link, Instances data) {
 		if (link == 0)
 			this.link = new CompleteLink();
@@ -18,10 +23,6 @@ public class HierarchicalClustering {
 			this.link = new SingleLink();
 		else
 			this.link = new AverageLink();
-		this.instances = data;
-	}
-	
-	public void setInstances(Instances data){
 		this.instances = data;
 	}
 	
