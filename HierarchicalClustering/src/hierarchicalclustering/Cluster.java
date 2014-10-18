@@ -8,7 +8,7 @@ public class Cluster {
 	private LinkedList<Instance> instances;
 	
 	public Cluster() {
-		super();
+		this.instances = new LinkedList<Instance>();
 	}
 	
 	/**
@@ -41,6 +41,26 @@ public class Cluster {
 	 */
 	public void removeInstance(Instance instance) {
 		this.instances.remove(instance);
+	}
+	
+	/**
+	 * 
+	 * @param i
+	 */
+	public void remove(int i) {
+		this.instances.remove(i);
+	}
+	
+	/**
+	 * 
+	 * @param i
+	 * @return
+	 */
+	public Cluster rest(int i) {
+		Cluster c = new Cluster();
+		c.merge(this);
+		c.remove(i);
+		return c;
 	}
 	
 	/**

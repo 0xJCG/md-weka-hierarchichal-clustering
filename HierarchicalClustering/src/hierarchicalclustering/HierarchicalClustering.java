@@ -4,7 +4,6 @@ import weka.core.Instance;
 import weka.core.Instances;
 import distances.AverageLink;
 import distances.CompleteLink;
-import distances.Distance;
 import distances.LinksInterface;
 import distances.SingleLink;
 
@@ -65,47 +64,44 @@ public class HierarchicalClustering {
 		//ClusterTree.getClusterTree().print();
 		return resultado;
 	}
+	
 	/**
 	 * Realiza el algoritmo top-down de clustering jerarquico
 	 * @return
 	 */
 	public String run2(){
-		Instance instance1, instance2, mininstance;
+		Instance instance = null;
 		Cluster c = new Cluster();
-		Cluster caux;
+		Cluster caux, caux2 = new Cluster();
 		double minDistance, daux  = 0;
-		int i1 = 0, numIteracionesQueFaltan = this.instances.numInstances();
+		int index = 0, numIteracionesQueFaltan = this.instances.numInstances();
 		int iteraciones = numIteracionesQueFaltan;
 		
 		System.out.println("Iteracion 1 de " + iteraciones + ".");
 		ClusterList updatingClusterList = this.beginClustering2();
 		c = updatingClusterList.get(0);
 		String resultado = "A distancia 0, " + updatingClusterList.toString() + "\n";
-		while (numIteracionesQueFaltan > 1) { // Sabemos que empezamos con un único cluster y acabaremos con el número de instancias.
+		
+		while (numIteracionesQueFaltan > 1) { // Sabemos que empezamos con un unico cluster y acabaremos con el numero de instancias.
 			System.out.println("Iteracion " + (iteraciones - numIteracionesQueFaltan + 2) + " de " + iteraciones + ".");
 			
 			minDistance = 1.0/0.0; // Infinito.
-			for (int i = 0; i < updatingClusterList.size(); i++) {
-				double dac=0;
-				for(int j = 1;j < updatingClusterList.size(); j++){
-					instance1=c.get(i);
-					instance2=c.get(j);
-					daux=Distance.getMiDistance().getDistance().distance(instance1, instance2);
-					dac=dac+daux;
+			for (int i = 0; i < c.size(); i++) { // Recorremos el cluster principal.
+				instance = c.get(i); // Cogemos la instancia actual.
+				caux = new Cluster(instance); // La metemos en un cluster temporal.
+				caux2 = c.rest(i); // Guardamos en un cluster temporal, el resto del cluster principal quitando la instancia actual.
+				daux = this.link.calculateClusterDistance(caux, caux2); // Comprobamos la distancia entre el nuevo cluster con la unica instancia, con el cluster principal sin dicha instancia.
+				if (daux < minDistance) { // Si la distancia es la minima, guardamos los datos necesarios para saber cual es la instancia a quitar.
+					minDistance = daux;
+					index = i; // Posicion de la instancia a quitar.
 				}
-				if(dac<minDistance){
-					minDistance=dac;
-					i1=i;
-				}
-				
 			}
-			updatingClusterList.remove(c);
-			mininstance=c.get(i1);
-			c.removeInstance(mininstance);
-			caux= new Cluster(mininstance);
-			updatingClusterList.add(c);
-			updatingClusterList.add(caux);
+			caux = new Cluster(c.get(index));
+			c.remove(index);
+			updatingClusterList.add(caux); // Un cluster mas en la lista.
 			resultado += "A distancia " + minDistance + ", " + updatingClusterList.toString() + "\n";
+			
+			numIteracionesQueFaltan--; // Una iteracion menos.
 		}
 		return resultado;
 	}
@@ -124,14 +120,15 @@ public class HierarchicalClustering {
 		//ClusterTree.getClusterTree().add(0f, firstClusterList);
 		return firstClusterList;
 	}
+	
 	/**
 	 * Realiza la primera iteracion del metodo top-down de cluster jerarquico, es decir, todas las instancias en un cluster.
 	 * @return Devuelve la lista con un solo cluster que tiene todas las instancias.
 	 */
 	private ClusterList beginClustering2(){
-		Cluster newCluster= new Cluster();
+		Cluster newCluster = new Cluster();
 		ClusterList firstClusterList = new ClusterList();
-		for (int i=0;i<this.instances.numInstances();i++){
+		for (int i = 0; i < this.instances.numInstances(); i++){
 			newCluster.addInstance(this.instances.instance(i));
 		}
 		firstClusterList.add(newCluster);
