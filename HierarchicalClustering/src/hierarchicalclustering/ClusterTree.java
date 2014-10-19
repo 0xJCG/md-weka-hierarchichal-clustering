@@ -1,42 +1,60 @@
 package hierarchicalclustering;
 
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeMap;
-
 public class ClusterTree {
-	private static ClusterTree miClusterTree = null;
-	private TreeMap<Float, ClusterList> tree;
-	
-	private ClusterTree() {
-		this.tree = new TreeMap<Float, ClusterList>();
+	private ClusterNode root;
+	private ClusterNode lastNode;
+ 
+    public ClusterTree(double distance, Cluster cluster) {
+        this.root = new ClusterNode(distance, cluster);
+        this.lastNode = root;
+    }
+ 
+    public ClusterTree(ClusterNode root) {
+        this.root = root;
+        this.lastNode = root;
+    }
+
+    public ClusterNode getLastNode() {
+		return this.lastNode;
 	}
-	
-	public static ClusterTree getClusterTree() {
-		if (miClusterTree == null)
-			miClusterTree = new ClusterTree();
-		return miClusterTree;
-	}
-	
-	public void add(Float distance, ClusterList clusters) {
-		this.tree.put(distance, clusters);
-	}
-	
-	public String toString() {
-		return this.tree.toString();
-	}
-	
-	public int size() {
-		return this.tree.size();
-	}
-	
-	public void print() {
-		Set<Float> keys = this.tree.keySet();
-		for (Iterator<Float> i = keys.iterator(); i.hasNext();) {
-			Float key = (Float) i.next();
-			ClusterList value = this.tree.get(key);
-			System.out.println("Distancia: " + key);
-			value.print();
-		}
-	}
+
+	public void addClusterNode(ClusterNode clusterNode) {
+        this.addClusterNode(clusterNode, this.root);
+        this.lastNode = clusterNode;
+    }
+    
+    public void addClusterNode(double distance, Cluster cluster) {
+        ClusterNode clusterNode = new ClusterNode(distance, cluster);
+    	this.addClusterNode(clusterNode, this.root);
+        this.lastNode = clusterNode;
+    }
+    
+    private void addClusterNode(ClusterNode node, ClusterNode root) {
+    	/* Queremos siempre que los clusters solitarios queden como hojas en las ramas izquierdas. */
+    	if (root.getLeftBranch() == null) // Si esta libre, anadimos el nodo.
+        	root.setLeftBranch(node);
+        else {
+        	if (root.getRightBranch() == null) // Si el de la derecha esta libre, anadimos a la derecha.
+            	root.setRightBranch(node);
+        	else
+        		this.addClusterNode(node, root.getRightBranch()); // Sino, anadimos en la rama de la derecha.
+        }
+    }
+    
+    public String toString() {
+        return this.toString(this.root);
+    }
+    
+    private String toString(ClusterNode node) {
+        String string = "";
+    	if (node != null) {
+        	if ((node.getRightBranch() == null && node != this.lastNode) || node == this.root) { // Es hoja y no es el ultimo nodo del arbol o es la raiz.
+        		string += "A distancia " + node.getDistance() + ":\n"; // Solo imprimos la distancia una vez.
+        	}
+        	string += "  " + node.getCluster().getInstances() + "\n";
+        	string += this.toString(node.getLeftBranch());
+        	string += this.toString(node.getRightBranch());
+        }
+    	return string;
+    }
 }

@@ -28,6 +28,7 @@ public class HierarchicalClustering {
 	
 	/**
 	 * Realiza el algoritmo bottom-up de clustering jerarquico.
+	 * @return El String con la salida al fichero.
 	 */
 	public String bottomUp() {
 		Cluster c = new Cluster();
@@ -44,7 +45,7 @@ public class HierarchicalClustering {
 			System.out.println("Iteracion " + (iteraciones - numIteracionesQueFaltan + 2) + " de " + iteraciones + ".");
 			
 			minDistance = 1.0/0.0; // Infinito.
-			for (int i = 0; i < updatingClusterList.size(); i++) { // Comprobamos cada cluster primer cluster...
+			for (int i = 0; i < updatingClusterList.size(); i++) { // Comprobamos cada cluster...
 				c = updatingClusterList.get(i);
 				for (int j = i + 1; j < updatingClusterList.size(); j++) { // ...con el resto de clusters que quedan por comprobar.
 					daux = this.link.calculateClusterDistance(c, updatingClusterList.get(j)); // Calculamos la distancia entre clusters.
@@ -58,29 +59,25 @@ public class HierarchicalClustering {
 			updatingClusterList.get(c1).merge(updatingClusterList.get(c2)); // Unimos los dos clusters mas cercanos entre si.
 			updatingClusterList.remove(c2); // Eliminamos el cluster que hemos introducido en el otro.
 			numIteracionesQueFaltan--; // Un cluster menos en la lista.
-			//ClusterTree.getClusterTree().add((float) minDistance, updatingClusterList);
 			
 			resultado += "A distancia " + minDistance + ", " + updatingClusterList.toString() + "\n";
 		}
-		//ClusterTree.getClusterTree().print();
 		return resultado;
 	}
 	
 	/**
 	 * Realiza el algoritmo top-down de clustering jerarquico
-	 * @return
+	 * @return El String con la salida al fichero.
 	 */
 	public String topDown(){
 		Instance instance = null;
-		Cluster c, caux, caux2 = new Cluster();
+		Cluster c = this.beginTopDown(), caux, caux2 = new Cluster();
 		double minDistance, daux = 0;
 		int index = 0, numIteracionesQueFaltan = this.instances.numInstances();
 		int iteraciones = numIteracionesQueFaltan;
 		
 		System.out.println("Iteracion 1 de " + iteraciones + ".");
-		ClusterList updatingClusterList = this.beginTopDown();
-		c = updatingClusterList.get(0);
-		String resultado = "A distancia 0, " + updatingClusterList.toString() + "\n";
+		ClusterTree cTree = new ClusterTree(0, c); // Creamos el arbol poniendo como raiz el cluster inicial y la distancia como cero.
 		
 		while (numIteracionesQueFaltan > 1) { // Sabemos que empezamos con un unico cluster y acabaremos con el numero de instancias.
 			System.out.println("Iteracion " + (iteraciones - numIteracionesQueFaltan + 2) + " de " + iteraciones + ".");
@@ -96,14 +93,14 @@ public class HierarchicalClustering {
 					index = i; // Posicion de la instancia a quitar.
 				}
 			}
-			caux = new Cluster(c.get(index));
-			c.remove(index);
-			updatingClusterList.add(caux); // Un cluster mas en la lista.
-			resultado += "A distancia " + minDistance + ", " + updatingClusterList.toString() + "\n";
-			
+			caux = new Cluster(c.get(index)); // Nuevo cluster con la instancia.
+			c = c.rest(index); // Eliminamos la instancia del cluster principal.
+			cTree.addClusterNode(minDistance, caux); // Anadimos el nuevo cluster al arbol.
+			cTree.addClusterNode(minDistance, c); // Anadimos como queda el cluster principal al arbol.
 			numIteracionesQueFaltan--; // Una iteracion menos.
+			
 		}
-		return resultado;
+		return cTree.toString();
 	}
 	
 	/**
@@ -117,21 +114,18 @@ public class HierarchicalClustering {
 			newCluster = new Cluster(this.instances.instance(i));
 			firstClusterList.add(newCluster);
 		}
-		//ClusterTree.getClusterTree().add(0f, firstClusterList);
 		return firstClusterList;
 	}
 	
 	/**
 	 * Realiza la primera iteracion del metodo top-down de cluster jerarquico, es decir, todas las instancias en un cluster.
-	 * @return Devuelve la lista con un solo cluster que tiene todas las instancias.
+	 * @return Devuelve el cluster que tiene todas las instancias.
 	 */
-	private ClusterList beginTopDown(){
-		Cluster newCluster = new Cluster();
-		ClusterList firstClusterList = new ClusterList();
+	private Cluster beginTopDown() {
+		Cluster rootCluster = new Cluster();
 		for (int i = 0; i < this.instances.numInstances(); i++){
-			newCluster.addInstance(this.instances.instance(i));
+			rootCluster.addInstance(this.instances.instance(i));
 		}
-		firstClusterList.add(newCluster);
-		return firstClusterList;
+		return rootCluster;
 	}
 }
