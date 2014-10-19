@@ -36,7 +36,7 @@ public class ClusterList {
 		this.list.remove(i);
 	}
 	
-	public void remove(Cluster c){
+	public void remove(Cluster c) {
 		this.list.remove(c);
 	}
 	

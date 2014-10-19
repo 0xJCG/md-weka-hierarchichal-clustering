@@ -53,7 +53,7 @@ public class ClusterTree {
         String string = "";
     	if (node != null) {
         	if ((node.getRightBranch() == null && node != this.lastNode) || node == this.root) { // Es hoja y no es el ultimo nodo del arbol o es la raiz.
-        		string += "A distancia " + node.getDistance() + ":\n"; // Solo imprimos la distancia una vez.
+        		string += "A distancia " + node.getDistance() + ":\n"; // Solo imprimimos la distancia una vez.
         	}
         	string += "  " + node.getCluster().getInstances() + "\n";
         	string += this.toString(node.getLeftBranch());
@@ -63,7 +63,7 @@ public class ClusterTree {
     }
     
     public String printTree() {
-	    return this.printTree(root, 0);
+	    return this.printTree(this.root, 0);
 	}
     
     private String printTree(ClusterNode node, int level) {
