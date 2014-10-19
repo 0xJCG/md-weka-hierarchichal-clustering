@@ -10,49 +10,40 @@ public class DataLoader {
 	private FileReader fr;
 	
 	/**
-	 * pre: Se recibe como parametro el path del fichero.
-	 * La constructora comprueba que el path que le pasamos como parametro es correcto antes de 
-	 * construir, tratando la excepcion.
-	 * @param path
+	 * La constructora no comprueba que el path que le pasamos como parametro es correcto antes de 
+	 * construir, es decir, lanza la excepcion.
+	 * @param path: fichero a cargar.
 	 * @throws FileNotFoundException 
 	 */
 	public DataLoader(String path) throws FileNotFoundException {
 		this.fr = new FileReader(path);
 	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	private FileReader getFR() {
-		return fr;
-	}
 		
 	/**
-	 * pre:
-	 * pos:carga como instancias el fichero instanciado previamente en la constructora de la clase.
+	 * Carga las instancias del fichero tratado en la constructora y elimina los atributos no deseados.
+	 * @param Instances: instancias que tenia el fichero.
 	 * @throws IOException 
 	 * 
 	 */
 	public Instances instancesLoader() throws IOException {	
 		Instances data = null;
-		data = new Instances(this.getFR());
+		data = new Instances(this.fr);
 		this.closeFR(); // Close the file
 		return deleteUselessAtributes(data);
 	}
 	
 	/**
-	 * Close the file
+	 * Cierra el fichero.
 	 * @throws IOException  
 	 */
 	private void closeFR() throws IOException {
-		this.getFR().close();
+		this.fr.close();
 	}
 	
 	/**
-	 * 
-	 * @param instances
-	 * @return
+	 * Elimina aquellos atributos que no nos sirven: Strings y la clase, de haberlas.
+	 * @param instances: instancias a tratar.
+	 * @return Las instancias con atributos que no nos sirven.
 	 */
 	private Instances deleteUselessAtributes(Instances instances) {
 		if (instances.checkForStringAttributes())

@@ -10,7 +10,7 @@ import java.util.GregorianCalendar;
 public class SaveResults {
 	private static SaveResults miSaveResults = null;
 	
-	private SaveResults() {}
+	private SaveResults() {} // Es una MAE.
 	
 	public static SaveResults getSaveResults() {
 		if (miSaveResults == null)
@@ -19,16 +19,14 @@ public class SaveResults {
 	}
 	
 	/**
-	 * pre:
-	 * @param FilePath = String, indica la ruta del archivo.
-	 * @param FileContent = String, indica el contenido del archivo
-	 * @param CleanFileContent = boolean.Si tue y existe el archivo borra el contenido, 
-	 * 			si false, añade el contenido al final del archivo.
-	 * @return true si se guarda con éxito, false en caso contrario.
+	 * Guarda el contenido de un String en un fichero de texto.
+	 * @param FilePath = String: indica la ruta del archivo.
+	 * @param FileContent = String: indica el contenido del archivo.
+	 * @param CleanFileContent = boolean: si true y existe el archivo, borra el contenido del mismo; si false, anade el contenido al final del archivo.
 	 * 
-	 * fuente : http://www.creatusoftware.com/index.php?option=com_content&view=article&id=142:funcion-para-guardar-un-archivo-en-java&catid=62:fuentes-java&Itemid=41
+	 * Fuente : http://www.creatusoftware.com/index.php?option=com_content&view=article&id=142:funcion-para-guardar-un-archivo-en-java&catid=62:fuentes-java&Itemid=41
 	 */
-	public boolean SaveFile(String path, String FileContent, boolean CleanFileContent) {
+	public void SaveFile(String path, String FileContent, boolean CleanFileContent) {
 		FileWriter file;
 		BufferedWriter writer;
 		
@@ -46,11 +44,8 @@ public class SaveResults {
 	         
 	        writer.close();
 	        file.close();
-	 
-	        return true;
 	    } catch (IOException ex) {
 	        ex.printStackTrace();
-	        return false;
 	   }
 	}
 }

@@ -8,12 +8,16 @@ import datafiles.DataLoader;
 import datafiles.SaveResults;
 import distances.Distance;
 
-/*ParÃ¡metros:
-  1Âº.-path: el path del fichero
-  2Âº.-k: Tipo de clustering jerÃ¡rquico. Si k=0 bottom up; si k=1 top down(de momento solo bottom up)
-  3Âº.-l: Tipo distancia intergrupal. Si k=0 single-link; si k=1 complete-link; si k=2 average-link(De momento solo single-link)
-  4Âº.-d: Distancia.Si k=0 Chebyshev; si k=1 Manhattan; si k=2 Euclidea*/
 public class Main {
+	/**
+	 * Arranque del programa.
+	 * @param args:
+	 * 0. Path del fichero
+	 * 1. Tipo de clustering jerarquico: si 0 top-down, sino bottom-up.
+	 * 2. Tipo distancia intergrupal: si 0 complete-link, si 1 single-link, sino average-link.
+	 * 3. Distancia: si 0 Chebyshev; sino Minkowski para k igual al parametro introducido.
+	 * 4. Salida de resultados a fichero: si 0 desactivado, sino activado.
+	 */
 	public static void main(String[] args) {
 		if (args.length == 5) {
 			DataLoader dl;

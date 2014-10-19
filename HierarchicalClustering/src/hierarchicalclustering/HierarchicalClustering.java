@@ -12,9 +12,9 @@ public class HierarchicalClustering {
 	private LinksInterface link;
 	
 	/**
-	 * 
-	 * @param link
-	 * @param data
+	 * Constructura de la clase HierarchicalClustering.
+	 * @param link: se trata de la opcion para activar la distancia intergrupal deseada.
+	 * @param data: las instancias de datos a clasificar.
 	 */
 	public HierarchicalClustering(int link, Instances data) {
 		if (link == 0)
