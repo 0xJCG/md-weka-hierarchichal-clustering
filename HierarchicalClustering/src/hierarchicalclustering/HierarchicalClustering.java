@@ -29,14 +29,14 @@ public class HierarchicalClustering {
 	/**
 	 * Realiza el algoritmo bottom-up de clustering jerarquico.
 	 */
-	public String run() {
+	public String bottomUp() {
 		Cluster c = new Cluster();
 		double minDistance, daux = 0;
 		int c1 = 0, c2 = 0, numIteracionesQueFaltan = this.instances.numInstances();
 		int iteraciones = numIteracionesQueFaltan;
 		
 		System.out.println("Iteracion 1 de " + iteraciones + ".");
-		ClusterList updatingClusterList = this.beginClustering();
+		ClusterList updatingClusterList = this.beginBottomUp();
 		
 		String resultado = "A distancia 0, " + updatingClusterList.toString() + "\n";
 		
@@ -70,7 +70,7 @@ public class HierarchicalClustering {
 	 * Realiza el algoritmo top-down de clustering jerarquico
 	 * @return
 	 */
-	public String run2(){
+	public String topDown(){
 		Instance instance = null;
 		Cluster c, caux, caux2 = new Cluster();
 		double minDistance, daux = 0;
@@ -78,7 +78,7 @@ public class HierarchicalClustering {
 		int iteraciones = numIteracionesQueFaltan;
 		
 		System.out.println("Iteracion 1 de " + iteraciones + ".");
-		ClusterList updatingClusterList = this.beginClustering2();
+		ClusterList updatingClusterList = this.beginTopDown();
 		c = updatingClusterList.get(0);
 		String resultado = "A distancia 0, " + updatingClusterList.toString() + "\n";
 		
@@ -110,7 +110,7 @@ public class HierarchicalClustering {
 	 * Realiza la primera iteracion del metodo bottom-up de cluster jerarquico, es decir, una instancia por cluster.
 	 * @return Devuelve la lista inicial con los clusters.
 	 */
-	private ClusterList beginClustering() {
+	private ClusterList beginBottomUp() {
 		Cluster newCluster;
 		ClusterList firstClusterList = new ClusterList();
 		for (int i = 0; i < this.instances.numInstances(); i++) {
@@ -125,7 +125,7 @@ public class HierarchicalClustering {
 	 * Realiza la primera iteracion del metodo top-down de cluster jerarquico, es decir, todas las instancias en un cluster.
 	 * @return Devuelve la lista con un solo cluster que tiene todas las instancias.
 	 */
-	private ClusterList beginClustering2(){
+	private ClusterList beginTopDown(){
 		Cluster newCluster = new Cluster();
 		ClusterList firstClusterList = new ClusterList();
 		for (int i = 0; i < this.instances.numInstances(); i++){
