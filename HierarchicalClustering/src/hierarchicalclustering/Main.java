@@ -62,10 +62,12 @@ public class Main {
 			
 			if (algorithm == 1) { // Top-down
 				resultado += " - Algoritmo utilizado: top-down.\n\n";
+				System.out.println(resultado);
 				resultado += "=========== Resultado del algoritmo ===========\n\n";
 				resultado += hc.run2();
 			} else { // Por defecto, bottom-up.
 				resultado += " - Algoritmo utilizado: bottom-up.\n\n";
+				System.out.println(resultado);
 				resultado += "=========== Resultado del algoritmo ===========\n\n";
 				resultado += hc.run();
 			}
