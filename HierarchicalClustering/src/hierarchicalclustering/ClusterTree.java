@@ -14,7 +14,11 @@ public class ClusterTree {
         this.lastNode = root;
     }
 
-    public ClusterNode getLastNode() {
+    public ClusterNode getRoot() {
+		return this.root;
+	}
+
+	public ClusterNode getLastNode() {
 		return this.lastNode;
 	}
 
@@ -56,5 +60,24 @@ public class ClusterTree {
         	string += this.toString(node.getRightBranch());
         }
     	return string;
+    }
+    
+    public String printTree() {
+	    return this.printTree(root, 0);
+	}
+    
+    private String printTree(ClusterNode node, int level) {
+    	String string = "";
+    	if (node == null)
+	    	return "";
+	    string += this.printTree(node.getRightBranch(), level + 1);
+	    if (node.getRightBranch() == null) {
+	    	string += node.getDistance() + "\t";
+	    	for (int i = 0; i < level - 1; i++)
+	    		string += "|\t";
+	    	string += "|" + node.getCluster().getInstances() + "\n";
+	    }
+	    string += printTree(node.getLeftBranch(), level + 1);
+	    return string;
     }
 }

@@ -35,6 +35,7 @@ public class Main {
 			resultado += args[0] + ".\n";
 			resultado += " - Numero de instancias: " + data.numInstances() + ".\n";
 			HierarchicalClustering hc;
+			ClusterTree tree = new ClusterTree(null);
 			
 			int algorithm = Integer.parseInt(args[1]);
 			int linkage = Integer.parseInt(args[2]);
@@ -64,7 +65,8 @@ public class Main {
 				resultado += " - Algoritmo utilizado: top-down.\n\n";
 				System.out.println(resultado);
 				resultado += "=========== Resultado del algoritmo ===========\n\n";
-				resultado += hc.topDown();
+				tree = hc.topDown();
+				resultado += tree.toString();
 			} else { // Por defecto, bottom-up.
 				resultado += " - Algoritmo utilizado: bottom-up.\n\n";
 				System.out.println(resultado);
@@ -72,8 +74,11 @@ public class Main {
 				resultado += hc.bottomUp();
 			}
 			
-			if (file != 0) // Si el usuario ha introducido un numero que no sea 0, sacara el resultado de las iteraciones en un fichero.
-				SaveResults.getSaveResults().SaveFile(args[0], resultado, true);
+			if (file != 0) { // Si el usuario ha introducido un numero que no sea 0, sacara el resultado de las iteraciones en un fichero.
+				SaveResults.getSaveResults().SaveFile(args[0], resultado, true, "resultado");
+				if (algorithm == 0) // Top-down
+					SaveResults.getSaveResults().SaveFile(args[0], tree.printTree(), false, "arbol");
+			}
 		} else {
 			System.out.println("El numero de parametros no es el correcto.");
 			String aviso = "Parametros a introducir:\n";

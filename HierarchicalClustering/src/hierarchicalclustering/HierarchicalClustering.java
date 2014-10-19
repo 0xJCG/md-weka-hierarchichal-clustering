@@ -67,9 +67,9 @@ public class HierarchicalClustering {
 	
 	/**
 	 * Realiza el algoritmo top-down de clustering jerarquico
-	 * @return El String con la salida al fichero.
+	 * @return El arbol resultante.
 	 */
-	public String topDown(){
+	public ClusterTree topDown(){
 		Instance instance = null;
 		Cluster c = this.beginTopDown(), caux, caux2 = new Cluster();
 		double minDistance, daux = 0;
@@ -96,11 +96,11 @@ public class HierarchicalClustering {
 			caux = new Cluster(c.get(index)); // Nuevo cluster con la instancia.
 			c = c.rest(index); // Eliminamos la instancia del cluster principal.
 			cTree.addClusterNode(minDistance, caux); // Anadimos el nuevo cluster al arbol.
-			cTree.addClusterNode(minDistance, c); // Anadimos como queda el cluster principal al arbol.
+			cTree.addClusterNode(minDistance, c); // Anadimos lo que queda del cluster principal al arbol.
 			numIteracionesQueFaltan--; // Una iteracion menos.
 			
 		}
-		return cTree.toString();
+		return cTree;
 	}
 	
 	/**
