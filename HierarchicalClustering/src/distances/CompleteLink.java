@@ -4,6 +4,13 @@ import weka.core.Instance;
 import hierarchicalclustering.Cluster;
 
 public class CompleteLink implements LinksInterface {
+	 /**
+	 * Pre: los clusters no deben estar vacíos.
+	 * Calcula la distancia intergrupal entre 2 clusters por complete-link(la distancia mayor entre los clusters).
+	 * @param cluster1
+     	 * @param cluster2
+     	 * @return distance: la distancia obtenida.
+	 */
 	public double calculateClusterDistance(Cluster cluster1, Cluster cluster2) {
 		Instance instance1, instance2;
 		double distance = 0, tempDist = 0;
