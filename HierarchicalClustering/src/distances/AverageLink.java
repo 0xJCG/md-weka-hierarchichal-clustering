@@ -4,8 +4,13 @@ import weka.core.Instance;
 import hierarchicalclustering.Cluster;
 
 public class AverageLink implements LinksInterface {
+	
 	/**
-	 * Pre: los clusters no deben estar vacíos.
+	 * Pre: los clusters no deben estar vacÃ­os.
+	 * Calcula la distancia intergrupal entre 2 clusters por average-link(la distancia entre sus centroides).
+	 * @param cluster1
+     * @param cluster2
+     * @return distance: la distancia obtenida.
 	 */
 	public double calculateClusterDistance(Cluster cluster1, Cluster cluster2) {
 		Instance instance1, instance2;
