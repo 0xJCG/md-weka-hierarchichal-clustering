@@ -10,8 +10,15 @@ import java.util.GregorianCalendar;
 public class SaveResults {
 	private static SaveResults miSaveResults = null;
 	
+	/**
+	 * Constructora privada ya que se trata de una MAE
+	 */
 	private SaveResults() {} // Es una MAE.
 	
+	/**
+	 * Inicializa el atributo en caso de que no tenga valor.
+	 * @return SaveResults: atributo de la MAE 
+	 */
 	public static SaveResults getSaveResults() {
 		if (miSaveResults == null)
 			miSaveResults = new SaveResults();
