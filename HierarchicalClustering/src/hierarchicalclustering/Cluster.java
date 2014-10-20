@@ -47,7 +47,7 @@ public class Cluster {
 	}
 	
 	/**
-	 * Elimina la instancia de cierta posicion.
+	 * Elimina la instancia de una cierta posicion.
 	 * @param i: posicion de la instacia a eliminar.
 	 */
 	public void remove(int i) {
@@ -67,7 +67,7 @@ public class Cluster {
 	}
 	
 	/**
-	 * Devuelve la instancia deseada.
+	 * Devuelve la instancia de una cierta posicion.
 	 * @param i: posicion de la instancia a devolver.
 	 * @return La instancia deseada.
 	 */
