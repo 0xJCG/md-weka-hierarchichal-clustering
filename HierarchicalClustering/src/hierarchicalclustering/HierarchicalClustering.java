@@ -72,7 +72,7 @@ public class HierarchicalClustering {
 	public ClusterTree topDown(){
 		Instance instance = null;
 		Cluster c = this.beginTopDown(), caux, caux2 = new Cluster();
-		double minDistance, daux = 0;
+		double maxDistance, daux = 0;
 		int index = 0, numIteracionesQueFaltan = this.instances.numInstances();
 		int iteraciones = numIteracionesQueFaltan;
 		
@@ -82,21 +82,21 @@ public class HierarchicalClustering {
 		while (numIteracionesQueFaltan > 1) { // Sabemos que empezamos con un unico cluster y acabaremos con el numero de instancias.
 			System.out.println("Iteracion " + (iteraciones - numIteracionesQueFaltan + 2) + " de " + iteraciones + ".");
 			
-			minDistance = 1.0/0.0; // Infinito.
+			maxDistance = 0; // Infinito.
 			for (int i = 0; i < c.size(); i++) { // Recorremos el cluster principal.
 				instance = c.get(i); // Cogemos la instancia actual.
 				caux = new Cluster(instance); // La metemos en un cluster temporal.
 				caux2 = c.rest(i); // Guardamos en un cluster temporal, el resto del cluster principal quitando la instancia actual.
 				daux = this.link.calculateClusterDistance(caux, caux2); // Comprobamos la distancia entre el nuevo cluster con la unica instancia, con el cluster principal sin dicha instancia.
-				if (daux < minDistance) { // Si la distancia es la minima, guardamos los datos necesarios para saber cual es la instancia a quitar.
-					minDistance = daux;
+				if (daux > maxDistance) { // Si la distancia es la maxima, guardamos los datos necesarios para saber cual es la instancia a quitar.
+					maxDistance = daux;
 					index = i; // Posicion de la instancia a quitar.
 				}
 			}
 			caux = new Cluster(c.get(index)); // Nuevo cluster con la instancia.
 			c = c.rest(index); // Eliminamos la instancia del cluster principal.
-			cTree.addClusterNode(minDistance, caux); // Anadimos el nuevo cluster al arbol.
-			cTree.addClusterNode(minDistance, c); // Anadimos lo que queda del cluster principal al arbol.
+			cTree.addClusterNode(maxDistance, caux); // Anadimos el nuevo cluster al arbol.
+			cTree.addClusterNode(maxDistance, c); // Anadimos lo que queda del cluster principal al arbol.
 			numIteracionesQueFaltan--; // Una iteracion menos.
 			
 		}
