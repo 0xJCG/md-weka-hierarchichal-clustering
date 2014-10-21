@@ -3,6 +3,7 @@ package hierarchicalclustering;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import utils.StopWatch;
 import weka.core.Instances;
 import datafiles.DataLoader;
 import datafiles.SaveResults;
@@ -20,6 +21,9 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		if (args.length == 5) {
+			double totalElapsedTime;
+			StopWatch programRunning = new StopWatch();
+			
 			DataLoader dl;
 			Instances data = null;
 			try {
@@ -61,24 +65,36 @@ public class Main {
 				resultado += " - Distancia utilizada: Minkowski, con k = " + distance + ".\n";
 			}
 			
+			double elapsedTimeAlgorithm;
+			StopWatch algorithmTime;
+			
 			if (algorithm == 0) { // Top-down
 				resultado += " - Algoritmo utilizado: top-down.\n\n";
 				System.out.println(resultado);
 				resultado += "=========== Resultado del algoritmo ===========\n\n";
+				algorithmTime = new StopWatch();
 				tree = hc.topDown();
+				elapsedTimeAlgorithm = algorithmTime.elapsedTime();
 				resultado += tree.toString();
 			} else { // Por defecto, bottom-up.
 				resultado += " - Algoritmo utilizado: bottom-up.\n\n";
 				System.out.println(resultado);
 				resultado += "=========== Resultado del algoritmo ===========\n\n";
+				algorithmTime = new StopWatch();
 				resultado += hc.bottomUp();
+				elapsedTimeAlgorithm = algorithmTime.elapsedTime();
 			}
+			
+			System.out.println("\n\nTiempo que ha tardado en ejecutarse el algoritmo: " + elapsedTimeAlgorithm + "s.");
 			
 			if (file != 0) { // Si el usuario ha introducido un numero que no sea 0, sacara el resultado de las iteraciones en un fichero.
 				SaveResults.getSaveResults().SaveFile(args[0], resultado, true, "resultado");
 				if (algorithm == 0) // Top-down
 					SaveResults.getSaveResults().SaveFile(args[0], tree.printTree(), false, "arbol");
 			}
+			
+			totalElapsedTime = programRunning.elapsedTime();
+			System.out.println("Tiempo que ha tardado en ejecutarse el prgrama completo: " + totalElapsedTime + "s.");
 		} else {
 			System.out.println("El numero de parametros no es el correcto.");
 			String aviso = "Parametros a introducir:\n";
