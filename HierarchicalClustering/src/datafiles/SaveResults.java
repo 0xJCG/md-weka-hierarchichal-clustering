@@ -27,11 +27,10 @@ public class SaveResults {
 	
 	/**
 	 * Guarda el contenido de un String en un fichero de texto.
-	 * @param FilePath = String: indica la ruta del archivo.
+	 * @param path = String: indica la ruta del archivo.
 	 * @param FileContent = String: indica el contenido del archivo.
 	 * @param CleanFileContent = boolean: si true y existe el archivo, borra el contenido del mismo; si false, anade el contenido al final del archivo.
 	 * @param type = String: tipo de fichero, se le pondra ese nombre al fichero (resultado, arbol...).
-	 * Fuente : http://www.creatusoftware.com/index.php?option=com_content&view=article&id=142:funcion-para-guardar-un-archivo-en-java&catid=62:fuentes-java&Itemid=41
 	 */
 	public void SaveFile(String path, String FileContent, boolean CleanFileContent, String type) {
 		FileWriter file;

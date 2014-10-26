@@ -47,7 +47,7 @@ public class ClusterNode {
 
 	/**
 	 * Asigna un nodo al nodo padre.
-	 * @param parent el nodo a asignar.
+	 * @param parent: el nodo a asignar.
 	 */
     public void setParent(ClusterNode parent) {
         this.parent = parent;
@@ -79,7 +79,7 @@ public class ClusterNode {
 
     /**
      * Asigna un nodo la rama derecha.
-     * @param leftBranch: el nodo que se le va asignar a el nodo raiz de la rama derecha.
+     * @param rightBranch: el nodo que se le va asignar a el nodo raiz de la rama derecha.
      */
     public void setRightBranch(ClusterNode rightBranch) {
         this.rightBranch = rightBranch;

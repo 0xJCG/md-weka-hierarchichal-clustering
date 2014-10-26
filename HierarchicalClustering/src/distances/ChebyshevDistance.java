@@ -5,8 +5,8 @@ import weka.core.Instance;
 public class ChebyshevDistance implements DistancesInterface {
 	/**
 	 * Calcula la distancia de Chebyshev entre 2 instancias.
-	 * @param instance1
-	 * @param instance2
+	 * @param instance1: Primera instancia de la que se quiere calcular la distancia.
+	 * @param instance2: Segunda instancia de la que se quiere calcular la distancia.
 	 * @return distance: la distancia obtenida.
 	 */
 	public double distance(Instance instance1, Instance instance2) {

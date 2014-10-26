@@ -7,16 +7,16 @@ package utils;
 
 public class StopWatch {
 	private final long start;
-	/**
-	* Create a stopwatch object.
-	*/
 	
+	/**
+	* Crea un objeto de StopWatch.
+	*/
 	public StopWatch() {
 		start = System.currentTimeMillis();
 	}
 	
 	/**
-	* Return elapsed time (in seconds) since this object was created.
+	* @return El tiempo, en segundos, desde que se ha creado este objeto.
 	*/
 	public double elapsedTime() {
 		long now = System.currentTimeMillis();

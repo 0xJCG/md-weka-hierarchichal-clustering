@@ -5,11 +5,11 @@ import hierarchicalclustering.Cluster;
 
 public class SingleLink implements LinksInterface {
 	 /**
-	 * Pre: los clusters no deben estar vacíos.
-	 * Calcula la distancia intergrupal entre 2 clusters por single-link(la distancia menor entre los clusters).
-	 * @param cluster1
-     	 * @param cluster2
-     	 * @return distance: la distancia obtenida.
+	 * Pre: los clusters no deben estar vacios.
+	 * Calcula la distancia intergrupal entre 2 clusters por single-link (la distancia menor entre los clusters).
+	 * @param cluster1: Primer cluster del que se quiere calcular la distancia.
+	 * @param cluster2: Segundo cluster del que se quiere calcular la distancia.
+	 * @return distance: la distancia obtenida.
 	 */
 	public double calculateClusterDistance(Cluster cluster1, Cluster cluster2) {
 		Instance instance1, instance2;

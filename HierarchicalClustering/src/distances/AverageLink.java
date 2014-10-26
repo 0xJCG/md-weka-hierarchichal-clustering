@@ -6,10 +6,10 @@ import hierarchicalclustering.Cluster;
 public class AverageLink implements LinksInterface {
 	
 	/**
-	 * Pre: los clusters no deben estar vacíos.
+	 * Pre: los clusters no deben estar vacios.
 	 * Calcula la distancia intergrupal entre 2 clusters por average-link(la distancia entre sus centroides).
-	 * @param cluster1
-     * @param cluster2
+	 * @param cluster1: Primer cluster del que se quiere calcular la distancia.
+     * @param cluster2: Segundo cluster del que se quiere calcular la distancia.
      * @return distance: la distancia obtenida.
 	 */
 	public double calculateClusterDistance(Cluster cluster1, Cluster cluster2) {

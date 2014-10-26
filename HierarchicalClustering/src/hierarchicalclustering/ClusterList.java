@@ -15,7 +15,7 @@ public class ClusterList {
 	
 	/**
 	 * Constructura de la clase. Se reserva memoria para la lista de clusters.
-	 * @param instance: primer cluster de la lista.
+	 * @param cluster: primer cluster de la lista.
 	 */
 	public ClusterList(Cluster cluster) {
 		this.list = new ArrayList<Cluster>();
@@ -24,7 +24,7 @@ public class ClusterList {
 	
 	/**
 	 * Anade un nuevo cluster a la lista. 
-	 * @param instance: cluster a anadir a la lista.
+	 * @param cluster: cluster a anadir a la lista.
 	 */
 	public void add(Cluster cluster) {
 		if (!this.isCluster(cluster))

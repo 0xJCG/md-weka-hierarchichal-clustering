@@ -13,7 +13,7 @@ public class DataLoader {
 	 * La constructora no comprueba que el path que le pasamos como parametro es correcto antes de 
 	 * construir, es decir, lanza la excepcion.
 	 * @param path: fichero a cargar.
-	 * @throws FileNotFoundException 
+	 * @throws FileNotFoundException Si no encuentra el fichero a leer, lanza excepcion.
 	 */
 	public DataLoader(String path) throws FileNotFoundException {
 		this.fr = new FileReader(path);
@@ -21,8 +21,8 @@ public class DataLoader {
 		
 	/**
 	 * Carga las instancias del fichero tratado en la constructora y elimina los atributos no deseados.
-	 * @param Instances: instancias que tenia el fichero.
-	 * @throws IOException 
+	 * @return Instances: instancias que tenia el fichero.
+	 * @throws IOException Si no puede cargar las instancias, lanza excepcion.
 	 * 
 	 */
 	public Instances instancesLoader() throws IOException {	
@@ -34,7 +34,7 @@ public class DataLoader {
 	
 	/**
 	 * Cierra el fichero.
-	 * @throws IOException  
+	 * @throws IOException Si no puede cerrar el fichero, lanza excepcion.
 	 */
 	private void closeFR() throws IOException {
 		this.fr.close();
